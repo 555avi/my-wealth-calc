@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institutional Wealth Analytics Engine</title>
-    <!-- חיבור לפונט האמריקאי המקצועי Inter -->
+    <title id="siteTitle">Institutional Wealth Analytics Engine</title>
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="family">
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f1f5f9; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
         .dashboard-card { background: #1e293b; padding: 35px; border-radius: 12px; max-width: 500px; width: 100%; border: 1px solid #334155; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
@@ -17,184 +16,217 @@
         .slider-header span { font-size: 14px; color: #94a3b8; font-weight: 500; }
         .manual-input { background: #0f172a; border: 1px solid #475569; color: #38bdf8; padding: 6px 10px; border-radius: 6px; width: 100px; text-align: right; font-weight: 600; font-family: 'Inter', sans-serif; }
         input[type=range] { width: 100%; cursor: pointer; accent-color: #38bdf8; }
-        
-        /* תיבת תוצאות ונעילה יוקרתית */
         .panel-box { margin-top: 30px; background: #0f172a; padding: 25px; border-radius: 8px; border: 1px solid #334155; text-align: center; position: relative; min-height: 130px; }
         .blur-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(8px); border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; z-index: 10; }
-        .blur-overlay p { margin: 0 0 15px 0; font-size: 15px; color: #f1f5f9; font-weight: 600; }
-        
-        /* טופס הרשמה אמריקאי נקי */
+        .blur-overlay p { margin: 0 0 15px 0; font-size: 14px; color: #f1f5f9; font-weight: 600; text-align: center; }
         .unlock-form { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 320px; }
         .unlock-input { background: #1e293b; border: 1px solid #475569; color: #fff; padding: 10px; border-radius: 6px; font-size: 14px; text-align: left; font-family: 'Inter', sans-serif; }
-        .unlock-input::placeholder { color: #64748b; }
         .legal-label { font-size: 11px; color: #94a3b8; display: flex; align-items: flex-start; gap: 8px; text-align: left; cursor: pointer; line-height: 1.4; }
         .legal-label input { margin-top: 3px; }
         .unlock-btn { background: #38bdf8; color: #0f172a; border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 14px; font-family: 'Inter', sans-serif; }
         .unlock-btn:hover { background: #0ea5e9; }
         .unlock-btn:disabled { background: #334155; color: #64748b; cursor: not-allowed; }
-
         .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .res-val { font-size: 22px; font-weight: 700; margin-top: 5px; letter-spacing: -0.025em; }
-        .ai-box { margin-top: 20px; background: #1e293b; padding: 14px; border-radius: 6px; border-left: 4px solid #10b981; font-size: 13px; text-align: left; line-height: 1.5; color: #cbd5e1; }
-        
-        /* שטחי פרסום מוכנים */
+        .ai-box { margin-top: 20px; background: #1e293b; padding: 14px; border-radius: 6px; border-left: 4px solid #38bdf8; font-size: 13px; text-align: left; line-height: 1.5; color: #cbd5e1; }
         .ad-space { background: #1e293b; border: 1px dashed #475569; color: #64748b; text-align: center; padding: 15px; border-radius: 6px; width: 100%; max-width: 500px; font-size: 12px; box-sizing: border-box; margin: 20px 0; }
     </style>
 </head>
 <body>
 
-<!-- מיקום פרסומת עליון -->
 <div class="ad-space">
-    <span style="color: #94a3b8; font-weight: 500;">Advertisement Space (Top Banner)</span><br>
-    <span style="font-size: 10px;">[Your Google AdSense code will be placed here to generate passive revenue]</span>
+    <span style="color: #94a3b8; font-weight: 500;" id="topAdTitle">Sponsored Financial Analytics</span><br>
+    <span style="font-size: 10px;">[Google AdSense context-matching ads will automatically display here]</span>
 </div>
 
 <div class="dashboard-card">
-    <h2>Institutional Wealth Analytics</h2>
+    <h2 id="mainHeading">Institutional Wealth Analytics</h2>
     
-    <!-- 1. הון התחלתי -->
+    <!-- מדיד 1 -->
     <div class="slider-group">
         <div class="slider-header">
-            <span>Initial Capital ($)</span>
+            <span id="label1">Initial Capital ($)</span>
             <input type="number" id="principalBox" class="manual-input" value="10000" oninput="syncBox('principal', 'principalBox')">
         </div>
         <input type="range" id="principal" min="0" max="100000" step="500" value="10000" oninput="syncSlider('principal', 'principalBox')">
     </div>
     
-    <!-- 2. הפקדה חודשית -->
+    <!-- מדיד 2 -->
     <div class="slider-group">
         <div class="slider-header">
-            <span>Monthly Deposit ($)</span>
+            <span id="label2">Monthly Deposit ($)</span>
             <input type="number" id="monthlyBox" class="manual-input" value="200" oninput="syncBox('monthly', 'monthlyBox')">
         </div>
         <input type="range" id="monthly" min="0" max="5000" step="50" value="200" oninput="syncSlider('monthly', 'monthlyBox')">
     </div>
     
-    <!-- 3. אחוז ריבית -->
+    <!-- מדיד 3 -->
     <div class="slider-group">
         <div class="slider-header">
-            <span>Annual ROI (%)</span>
+            <span id="label3">Annual ROI (%)</span>
             <input type="number" id="rateBox" class="manual-input" value="8" step="0.1" oninput="syncBox('rate', 'rateBox')">
         </div>
         <input type="range" id="rate" min="1" max="30" step="0.5" value="8" oninput="syncSlider('rate', 'rateBox')">
     </div>
 
-    <!-- 4. שנים -->
+    <!-- מדיד 4 -->
     <div class="slider-group">
         <div class="slider-header">
-            <span>Timeline (Years)</span>
+            <span id="label4">Timeline (Years)</span>
             <input type="number" id="yearsBox" class="manual-input" value="10" step="0.5" oninput="syncBox('years', 'yearsBox')">
         </div>
         <input type="range" id="years" min="1" max="40" step="0.5" value="10" oninput="syncSlider('years', 'yearsBox')">
     </div>
 
-    <!-- 5. עמלות ברוקר -->
+    <!-- מדיד 5 -->
     <div class="slider-group">
         <div class="slider-header">
-            <span>Broker Fees (%)</span>
+            <span id="label5">Broker Fees (%)</span>
             <input type="number" id="feeBox" class="manual-input" value="0.5" step="0.1" oninput="syncBox('fee', 'feeBox')">
         </div>
         <input type="range" id="fee" min="0" max="5" step="0.1" value="0.5" oninput="syncSlider('fee', 'feeBox')">
     </div>
 
-    <!-- לוח תוצאות נעול -->
     <div class="panel-box" id="panelBox">
-        
-        <!-- מסך חסימה והרשמה חוקי למשתמשים בארה"ב -->
         <div class="blur-overlay" id="lockOverlay">
-            <p>🔒 Unlock Live Analytics & AI Forecast</p>
+            <p id="lockText">🔒 Unlock Live Analytics & AI Forecast</p>
             <div class="unlock-form">
                 <input type="text" id="userName" class="unlock-input" placeholder="First Name" required>
                 <input type="email" id="userEmail" class="unlock-input" placeholder="Email Address" required>
-                
                 <label class="legal-label">
                     <input type="checkbox" id="legalAgree" onchange="toggleUnlockButton()">
-                    I agree to the Terms of Service & Privacy Policy. I consent to receive financial insights and promotional updates.
+                    I agree to the Terms of Service. I consent to receive financial insights and professional promotional offers.
                 </label>
-                
                 <button type="button" id="unlockBtn" class="unlock-btn" disabled onclick="unlockResults()">Calculate & Unlock</button>
             </div>
         </div>
 
-        <!-- תוצאות -->
         <div class="results-grid">
             <div>
-                <div style="color: #94a3b8; font-size: 12px; font-weight: 500;">Gross Balance</div>
+                <div style="color: #94a3b8; font-size: 12px; font-weight: 500;" id="resLabel1">Gross Balance</div>
                 <div class="res-val" id="grossWealth" style="color: #10b981;">$0</div>
             </div>
             <div>
-                <div style="color: #94a3b8; font-size: 12px; font-weight: 500;">Lost to Fees</div>
+                <div style="color: #94a3b8; font-size: 12px; font-weight: 500;" id="resLabel2">Lost to Fees</div>
                 <div class="res-val" id="lostToFees" style="color: #f43f5e;">$0</div>
             </div>
         </div>
-        <div class="ai-box" id="aiAdvice">📊 Analytics System Status: Ready</div>
+        <div class="ai-box" id="aiAdvice">📊 System Initialization Matrix...</div>
     </div>
 </div>
 
-<!-- מיקום פרסומת תחתון -->
 <div class="ad-space">
-    <span style="color: #94a3b8; font-weight: 500;">Sponsored Financial Offers (Affiliate / Banner)</span><br>
-    <span style="font-size: 10px; color: #38bdf8; cursor: pointer;">"Optimize your portfolio: Click here to view top-rated low-fee US brokers."</span>
+    <span style="color: #94a3b8; font-weight: 500;" id="bottomAdTitle">Premium Partner Brokerages</span><br>
+    <span style="font-size: 10px; color: #38bdf8; cursor: pointer;" id="bottomAdLink">"Click here to audit your active portfolio fees with verified US advisors."</span>
 </div>
 
 <script>
-    let debounceTimer;
-    let isUnlocked = false;
-
-    window.onload = function() {
-        calculate();
-    };
-
-    function toggleUnlockButton() {
-        const agreed = document.getElementById('legalAgree').checked;
-        document.getElementById('unlockBtn').disabled = !agreed;
-    }
-
-    function unlockResults() {
-        const name = document.getElementById('userName').value.trim();
-        const email = document.getElementById('userEmail').value.trim();
-
-        if (!name || !email) {
-            alert("Please provide your name and email to view your analytics.");
-            return;
-        }
-
-        document.getElementById('lockOverlay').style.display = 'none';
-        isUnlocked = true;
-        calculate();
-        sendStatsToOwner("LEAD_CAPTURED");
-    }
-
-    function syncSlider(sliderId, boxId) {
-        document.getElementById(boxId).value = document.getElementById(sliderId).value;
-        calculate();
-        if (isUnlocked) triggerDataCollection();
-    }
-
-    function syncBox(sliderId, boxId) {
-        let val = parseFloat(document.getElementById(boxId).value) || 0;
-        document.getElementById(sliderId).value = val;
-        calculate();
-        if (isUnlocked) triggerDataCollection();
-    }
-
-    function calculate() {
-        const principal = parseFloat(document.getElementById('principal').value) || 0;
-        const monthly = parseFloat(document.getElementById('monthly').value) || 0;
-        const rate = (parseFloat(document.getElementById('rate').value) || 0) / 100;
-        const years = parseFloat(document.getElementById('years').value) || 0;
-        const fee = (parseFloat(document.getElementById('fee').value) || 0) / 100;
-
-        let gross = principal;
-        for (let i = 0; i < (years * 12); i++) { gross = (gross * (1 + (rate / 12))) + monthly; }
+    // מילון ההתאמות - המוח שמשנה את האתר ב-100% לפי הכתובת
+    const contentPack = {
+        general: {
+            title: "Institutional Wealth Analytics Engine", heading: "Institutional Wealth Analytics",
+            l1: "Initial Capital ($)", l2: "Monthly Deposit ($)", l3: "Annual ROI (%)", l4: "Timeline (Years)", l5: "Broker Fees (%)",
+            lock: "🔒 Unlock Live Analytics & AI Forecast", r1: "Gross Balance", r2: "Lost to Fees",
+            adviceOpt: "Portfolio compounding structure is highly optimized.", adviceBad: "Elevated fee structures detected. Review low-cost capital alternatives.",
+            pMin: 0, pMax: 100000, pVal: 10000, mMin: 0, mMax: 5000, mVal: 200, rMin: 1, rMax: 30, rVal: 8, yMin: 1, yMax: 40, yVal: 10, fMin: 0, fMax: 5, fVal: 0.5
+        },
+        retirement: {
+            title: "Retirement Nest-Egg Forecast Engine", heading: "401k & Retirement Nest-Egg",
+            l1: "Current Retirement Savings ($)", l2: "Monthly Contribution ($)", l3: "Expected Annual Return (%)", l4: "Years Until Retirement", l5: "Plan Management Fees (%)",
+            lock: "🔒 Unlock Retirement Forecast & Fee Analysis", r1: "Nest-Egg at Retirement", r2: "Lost to Plan Fees",
+            adviceOpt: "Your projected timeline aligns with typical target-date horizons.", adviceBad: "High plan management fees detected. Consider an IRA rollover strategy.",
+            pMin: 0, pMax: 500000, pVal: 50000, mMin: 0, mMax: 10000, mVal: 500, rMin: 1, rMax: 15, rVal: 7, yMin: 1, yMax: 50, yVal: 20, fMin: 0, fMax: 3, fVal: 0.7
+        },
+        stocks: {
+            title: "S&P 500 Portfolio Compounding Engine", heading: "S&P 500 & Stock Compounding",
+            l1: "Initial Portfolio Size ($)", l2: "Monthly Stock Contributions ($)", l3: "Expected Market ROI (%)", l4: "Investment Horizon (Years)", l5: "Expense Ratios & Broker Fees (%)",
+            lock: "🔒 Unlock Market Analytics & Compound Interest Forecast", r1: "Future Portfolio Value", r2: "Lost to Drag Fees",
+adviceOpt: "Your ROI expectation matches historical S&P 500 long-term performance.", adviceBad: "High management/expense fee detected. Consider zero-commission ETFs.",
+pMin: 0, pMax: 250000, pVal: 25000, mMin: 0, mMax: 5000, mVal: 400, rMin: 3, rMax: 20, rVal: 9.5, yMin: 1, yMax: 40, yVal: 15, fMin: 0, fMax: 4, fVal: 0.2
+},
+realestate: {
+title: "Property Equity & Capital Growth Calculator", heading: "Real Estate Wealth & Cashflow",
+l1: "Property Purchase Price ($)", l2: "Monthly Rental Cashflow ($)", l3: "Annual Property Appreciation (%)", l4: "Holding Period (Years)", l5: "Maintenance & Tax Drag (%)",
+lock: "🔒 Unlock Property Forecast & Equity Analysis", r1: "Estimated Property Value", r2: "Lost to Maintenance/Taxes",
+adviceOpt: "Real estate leverage structure shows strong equity build-up compounding.", adviceBad: "High drag expenses detected. Maintenance costs are eroding cashflow assets.",
+pMin: 50000, pMax: 2000000, pVal: 350000, mMin: 0, mMax: 15000, mVal: 1200, rMin: 1, rMax: 12, rVal: 4.5, yMin: 1, yMax: 30, yVal: 15, fMin: 0, fMax: 6, fVal: 1.5
+}
+};
+let activePack = contentPack.general;
+let debounceTimer;
+let isUnlocked = false;
+// הפונקציה שקוראת את הכתובת ומשנה את האתר מיד בטעינה!
+window.onload = function() {
+const urlParams = new URLSearchParams(window.location.search);
+const pageType = urlParams.get('page'); // מחפש ?page=
+if (pageType && contentPack[pageType]) {
+activePack = contentPack[pageType];
+}
+applyContentPack();
+};
+function applyContentPack() {
+document.getElementById('siteTitle').innerText = activePack.title;
+document.getElementById('mainHeading').innerText = activePack.heading;
+document.getElementById('label1').innerText = activePack.l1;
+document.getElementById('label2').innerText = activePack.l2;
+document.getElementById('label3').innerText = activePack.l3;
+document.getElementById('label4').innerText = activePack.l4;
+document.getElementById('label5').innerText = activePack.l5;
+document.getElementById('lockText').innerText = activePack.lock;
+document.getElementById('resLabel1').innerText = activePack.r1;
+document.getElementById('resLabel2').innerText = activePack.r2;
+// עדכון ערכי המדידים הקיצוניים
+updateSliderLimits('principal', activePack.pMin, activePack.pMax, activePack.pVal, 'principalBox');
+updateSliderLimits('monthly', activePack.mMin, activePack.mMax, activePack.mVal, 'monthlyBox');
+updateSliderLimits('rate', activePack.rMin, activePack.rMax, activePack.rVal, 'rateBox');
+updateSliderLimits('years', activePack.yMin, activePack.yMax, activePack.yVal, 'yearsBox');
+updateSliderLimits('fee', activePack.fMin, activePack.fMax, activePack.fVal, 'feeBox');
+calculate();
+}
+function updateSliderLimits(id, min, max, val, boxId) {
+const s = document.getElementById(id);
+s.min = min; s.max = max; s.value = val;
+document.getElementById(boxId).value = val;
+}
+function toggleUnlockButton() {
+document.getElementById('unlockBtn').disabled = !document.getElementById('legalAgree').checked;
+}
+function unlockResults() {
+const name = document.getElementById('userName').value.trim();
+const email = document.getElementById('userEmail').value.trim();
+if (!name || !email) { alert("Please provide details."); return; }
+document.getElementById('lockOverlay').style.display = 'none';
+isUnlocked = true;
+calculate();
+sendStatsToOwner("LEAD_CAPTURED");
+}
+function syncSlider(sliderId, boxId) {
+document.getElementById(boxId).value = document.getElementById(sliderId).value;
+calculate();
+if (isUnlocked) triggerDataCollection();
+}
+function syncBox(sliderId, boxId) {
+let val = parseFloat(document.getElementById(boxId).value) || 0;
+document.getElementById(sliderId).value = val;
+calculate();
+if (isUnlocked) triggerDataCollection();
+}
+function calculate() {
+const principal = parseFloat(document.getElementById('principal').value) || 0;
+const monthly = parseFloat(document.getElementById('monthly').value) || 0;
+const rate = (parseFloat(document.getElementById('rate').value) || 0) / 100;
+const years = parseFloat(document.getElementById('years').value) || 0;
+const fee = (parseFloat(document.getElementById('fee').value) || 0) / 100;
+let gross = principal;
+for (let i = 0; i < (years * 12); i++) { gross = (gross * (1 + (rate / 12))) + monthly; }
 let net = principal;
 const netRate = Math.max(0, rate - fee);
 for (let i = 0; i < (years * 12); i++) { net = (net * (1 + (netRate / 12))) + monthly; }
 const lost = gross - net;
 document.getElementById('grossWealth').innerText = '$' + Math.round(gross).toLocaleString();
 document.getElementById('lostToFees').innerText = '$' + Math.round(lost).toLocaleString();
-let advice = "Portfolio compounding structure is highly optimized.";
-if (fee > 0.015) advice = "Elevated fee structures detected. Review low-cost capital alternatives.";
+let advice = activePack.adviceOpt;
+if (fee > (activePack.fMax / 4)) advice = activePack.adviceBad;
 document.getElementById('aiAdvice').innerHTML = "Forecast Insight: " + advice;
 }
 function triggerDataCollection() {
@@ -202,18 +234,13 @@ clearTimeout(debounceTimer);
 debounceTimer = setTimeout(() => sendStatsToOwner("LIVE_INTERACTION"), 1000);
 }
 function sendStatsToOwner(eventType) {
-const nameVal = document.getElementById('userName') ? document.getElementById('userName').value : "";
-const emailVal = document.getElementById('userEmail') ? document.getElementById('userEmail').value : "";
 const stats = {
 event: eventType,
-lead_name: nameVal,
-lead_email: emailVal,
+page_mode: window.location.search,
+lead_email: document.getElementById('userEmail').value,
 capital: document.getElementById('principal').value,
-deposit: document.getElementById('monthly').value,
-roi: document.getElementById('rate').value,
-years: document.getElementById('years').value,
-fees: document.getElementById('fee').value,
 timestamp: new Date().toISOString()
 };
-console.log("📊 Encrypted Data Packet Status: Ready", stats);
+console.log("📊 Secured Data Packet Status: Ready", stats);
 }
+
